@@ -1,3 +1,3 @@
 
 import os
-print(os.environ['message'])
+print(os.environ['mymessage'])
