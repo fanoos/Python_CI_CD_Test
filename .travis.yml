@@ -2,4 +2,4 @@ language: python
 python:
   - "3.7"
 script:
-  - echo $message
+  - echo "Is it Travis CI :) "
