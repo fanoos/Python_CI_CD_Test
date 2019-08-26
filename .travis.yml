@@ -2,6 +2,6 @@ language: python
 python:
   - "3.7"
 script:
-  - echo "Is it Travis CI :) "
+  - echo $mymessage 
   - echo "Run  pytest"
   - pytest -v --cov=calculator
