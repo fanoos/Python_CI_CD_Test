@@ -3,3 +3,5 @@ python:
   - "3.7"
 script:
   - echo "Is it Travis CI :) "
+  - echo "Run  pytest"
+  - pytest -v --cov=calculator
