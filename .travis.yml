@@ -3,6 +3,6 @@ python:
   - "3.7"
 script:
   - echo $mymessage 
-  - python hello-world-travis.py
+  - python hello-world-Travis.py
   - echo "Run  pytest"
   - pytest -v --cov=calculator
