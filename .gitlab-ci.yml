@@ -98,8 +98,10 @@ test_docker:
    - docker tag $CI_REGISTRY_IMAGE:"OKOK" myimage
    - docker run --name myimage myimage
   after_script:
-   - docker rm -f $CI_REGISTRY_IMAGE:"OKOK" myimage || true
+   - docker stop mycontainer
+   #- docker rm -f $CI_REGISTRY_IMAGE:"OKOK" myimage || true
    #- docker rmi -f myrepo:myimage image
+
     
 .build:
   # Official docker image.
