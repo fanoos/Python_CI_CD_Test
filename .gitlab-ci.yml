@@ -49,7 +49,7 @@ stages:
      paths:
       - venv/
       - venv/bin/
-     expire_in: 60 minutes
+mycontainer     expire_in: 60 minutes
     
     # The main task to run your tests.
     # This imports the Docker image for Python. Useful so you don't have to do any Python setup manually.
@@ -66,7 +66,7 @@ stages:
 
 build-master:
    # Official docker image.
-  #image: docker:git #docker:latest
+  #image: docker:git #docker:latestmycontainer
   image: docker:latest
   stage: build
   services:
@@ -99,6 +99,8 @@ test_docker:
    - docker pull $CI_REGISTRY_IMAGE:"OKOK"
    - docker tag $CI_REGISTRY_IMAGE:"OKOK" myimage
    - docker run --name mycontainer myimage
+   - docker exec -ti mycontainer bash
+   - python -c 'from calculator import *; print(add(2,2))'
   after_script:
    - docker stop mycontainer
    #- docker rm -f $CI_REGISTRY_IMAGE:"OKOK" myimage || true
