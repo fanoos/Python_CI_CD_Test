@@ -96,7 +96,7 @@ test_docker:
   script:
    - docker pull $CI_REGISTRY_IMAGE:"OKOK"
    - docker tag $CI_REGISTRY_IMAGE:"OKOK" myimage
-   - docker run --name myimage myimage
+   - docker run --name mycontainer myimage
   after_script:
    - docker stop mycontainer
    #- docker rm -f $CI_REGISTRY_IMAGE:"OKOK" myimage || true
