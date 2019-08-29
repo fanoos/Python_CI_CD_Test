@@ -9,8 +9,9 @@ cache:
   - venv/
  
 # Register any environment variables you need here.
-#.variables:
+.variables:
   #DOCKER_DRIVER: overlay2
+  MyDocker_Container: "mycontainer"
 
  
 .before_script:
@@ -49,7 +50,7 @@ stages:
      paths:
       - venv/
       - venv/bin/
-mycontainer     expire_in: 60 minutes
+    expire_in: 60 minutes
     
     # The main task to run your tests.
     # This imports the Docker image for Python. Useful so you don't have to do any Python setup manually.
@@ -64,7 +65,7 @@ mycontainer     expire_in: 60 minutes
 
 
 
-build-master:
+build-docker:
    # Official docker image.
   #image: docker:git #docker:latestmycontainer
   image: docker:latest
@@ -82,13 +83,11 @@ build-master:
     #- docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
     - docker build --pull -t $CI_REGISTRY_IMAGE:"OKOK" .
     - docker push $CI_REGISTRY_IMAGE:"OKOK"
-  
- 
   only:
    - tags
    - master
  
-test_docker:
+run_docker:
   #image: docker:git
   image: docker:latest
   services:
@@ -98,8 +97,8 @@ test_docker:
   script:
    - docker pull $CI_REGISTRY_IMAGE:"OKOK"
    - docker tag $CI_REGISTRY_IMAGE:"OKOK" myimage
-   - docker run --name mycontainer myimage
-   - docker exec -ti mycontainer bash
+   - docker run --name "$MyDocker_Container" myimage
+   - docker exec -ti "$MyDocker_Container" bash
    - python -c 'from calculator import *; print(add(2,2))'
   after_script:
    - docker stop mycontainer
