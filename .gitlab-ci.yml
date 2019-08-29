@@ -99,7 +99,7 @@ run_docker:
     - docker exec -ti "$MyDocker_Container" bash
     - python -c 'from calculator import *; print(add(2,2))'
    after_script:
-    - docker stop mycontainer
+    - docker stop "$MyDocker_Container"
    #- docker rm -f $CI_REGISTRY_IMAGE:"OKOK" myimage || true
    #- docker rmi -f myrepo:myimage image
 
