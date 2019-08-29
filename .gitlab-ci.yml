@@ -1,4 +1,4 @@
-image: python:3.6
+image: python:3.7
 
 # These paths will be cached in between test runs. Very useful for reducing the build time.
 # If you want to also cache the installed packages, you have to install
@@ -9,11 +9,11 @@ cache:
   - venv/
  
 # Register any environment variables you need here.
-.variables:
- DOCKER_DRIVER: overlay2
+#.variables:
+  #DOCKER_DRIVER: overlay2
 
  
-before_script:
+.before_script:
  - python -V
  - apt-get update -q -y
  
@@ -64,7 +64,7 @@ stages:
 
 
 
-build-master:
+.build-master:
    # Official docker image.
   image: docker:git #docker:latest
   stage: build
@@ -79,12 +79,9 @@ build-master:
     #- docker push "$CI_REGISTRY_IMAGE"
     #- docker build --pull -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
     #- docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
-    - docker build . -t app
-    - mkdir image
-    - docker save app > image/app.tar
-  artifacts:
-    paths:
-      - image
+    - docker build --pull -t $CI_REGISTRY_IMAGE:"OKOK" .
+    - docker push $CI_REGISTRY_IMAGE:"OKOK"
+  
  
   only:
    - tags
@@ -97,9 +94,12 @@ test_docker:
 
   stage: test_docker
   script:
-    - docker load -i image/app.tar
-    - docker run --name app -d app
-   # - docker exec app npm run lint-test
+   - docker pull $CI_REGISTRY_IMAGE:"OKOK"
+   - docker tag $CI_REGISTRY_IMAGE:"OKOK" myimage
+   - docker run --name myimage myimage
+  #after_script:
+   #- docker rm -f $CI_REGISTRY_IMAGE:"OKOK" myimage || true
+   #- docker rmi -f myrepo:myimage image
     
 .build:
   # Official docker image.
