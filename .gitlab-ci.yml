@@ -9,7 +9,7 @@ cache:
   - venv/
  
 # Register any environment variables you need here.
-.variables:
+variables:
  MyDocker_Container: "mycontainer"
   #DOCKER_DRIVER: overlay2
 
@@ -81,11 +81,11 @@ build-docker:
     #- docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
     - docker build --pull -t $CI_REGISTRY_IMAGE:"OKOK" .
     - docker push $CI_REGISTRY_IMAGE:"OKOK"
-   only:
-    - tags
-    - master
+   #only:
+   # - tags
+   # - master
  
-.run_docker:
+run_docker:
   #image: docker:git
    image: docker:latest
    services:
