@@ -64,9 +64,10 @@ stages:
 
 
 
-.build-master:
+build-master:
    # Official docker image.
-  image: docker:git #docker:latest
+  #image: docker:git #docker:latest
+  image: docker:latest
   stage: build
   services:
     - docker:dind
@@ -88,7 +89,8 @@ stages:
    - master
  
 test_docker:
-  image: docker:git
+  #image: docker:git
+  image: docker:latest
   services:
     - docker:dind
 
@@ -96,10 +98,12 @@ test_docker:
   script:
    - docker pull $CI_REGISTRY_IMAGE:"OKOK"
    - docker tag $CI_REGISTRY_IMAGE:"OKOK" myimage
-   - docker run --name myimage myimage
+   - docker run --name mycontainer myimage
   after_script:
-   - docker rm -f $CI_REGISTRY_IMAGE:"OKOK" myimage || true
+   - docker stop mycontainer
+   #- docker rm -f $CI_REGISTRY_IMAGE:"OKOK" myimage || true
    #- docker rmi -f myrepo:myimage image
+
     
 .build:
   # Official docker image.
