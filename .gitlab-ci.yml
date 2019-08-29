@@ -64,9 +64,10 @@ stages:
 
 
 
-.build-master:
+build-master:
    # Official docker image.
-  image: docker:git #docker:latest
+  #image: docker:git #docker:latest
+  image: docker:latest
   stage: build
   services:
     - docker:dind
@@ -88,7 +89,8 @@ stages:
    - master
  
 test_docker:
-  image: docker:git
+  #image: docker:git
+  image: docker:latest
   services:
     - docker:dind
 
