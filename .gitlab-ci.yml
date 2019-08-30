@@ -63,7 +63,7 @@ stages:
      - flake8 --ignore W292,W391 --exclude=venv* --statistics
      - pytest -v --cov=calculator
 
-.build-docker:
+build-docker:
    # Official docker image.
   #image: docker:git #docker:latestmycontainer
    image: docker:latest
