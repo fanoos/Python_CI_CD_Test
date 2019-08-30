@@ -121,6 +121,7 @@ build_Directly_Docker:
    image: registry.gitlab.com/crystalsoft2010/python_ci_cd_test:myhinew4_pushed
    stage: build_docker
    script:
+     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
      - make
    artifacts:
      paths:
