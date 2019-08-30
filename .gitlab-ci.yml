@@ -85,7 +85,7 @@ stages:
    # - tags
    # - master
  
-.run_docker:
+run_docker:
   #image: docker:git
    image: docker:latest
    services:
