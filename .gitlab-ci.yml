@@ -99,6 +99,7 @@ run_docker:
  
    after_script:
     - docker stop "$MyDocker_Container"
+    - docker info
    #- docker rm -f $CI_REGISTRY_IMAGE:"OKOK" myimage || true
    #- docker rmi -f myrepo:myimage image
 
