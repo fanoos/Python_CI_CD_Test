@@ -63,7 +63,7 @@ stages:
      - flake8 --ignore W292,W391 --exclude=venv* --statistics
      - pytest -v --cov=calculator
 
-build-docker:
+.build-docker:
    # Official docker image.
   #image: docker:git #docker:latestmycontainer
    image: docker:latest
@@ -85,7 +85,7 @@ build-docker:
    # - tags
    # - master
  
-run_docker:
+.run_docker:
   #image: docker:git
    image: docker:latest
    services:
@@ -116,6 +116,21 @@ run_docker:
     - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
    except:
     - master
-
+   
+build_Directly_Docker:
+   image: registry.gitlab.com/crystalsoft2010/python_ci_cd_test:myhinew4_pushed
+   stage: build_docker
+   script:
+     - make
+   artifacts:
+     paths:
+       - hello
+      
+run_Directly_Docker:
+   image: registry.gitlab.com/crystalsoft2010/python_ci_cd_test:myhinew4_pushed
+   stage: run_docker
+   script:
+     - python -V
+     
 
   
