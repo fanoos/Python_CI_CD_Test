@@ -10,6 +10,6 @@ jobs:
       name: "Running the Script"
       script:
       - echo $message 
-      - python hello-world-travis.py
-      - echo "Run  pytest"
-      - pytest -v --cov=calculator
+      #- python hello-world-travis.py
+      #- echo "Run  pytest"
+      #- pytest -v --cov=calculator
