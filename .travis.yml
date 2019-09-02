@@ -9,7 +9,8 @@ jobs:
     - stage: execute
       name: "Running the Script"
       script:
-      - echo $message 
+      - echo "hi"
+      #- echo $message 
       #- python hello-world-travis.py
       #- echo "Run  pytest"
       #- pytest -v --cov=calculator
