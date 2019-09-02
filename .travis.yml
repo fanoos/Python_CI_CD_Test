@@ -12,4 +12,4 @@ jobs:
       - echo $message 
       - python hello-world-travis.py
       - echo "Run  pytest"
-      - pytest -v --cov=calculator
+      #- pytest -v --cov=calculator
