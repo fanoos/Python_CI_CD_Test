@@ -1,16 +1,21 @@
 from setuptools import setup, find_packages
 
+with open("README.md","r") as fh:
+    long_description= fh.read()
 
 setup(
-    name='PythonDevOs',
+    name='PythonDevOps',
     version='0.0.1',
     author='Mostafa Ramezani',
     author_email='crystalsoft2010@gmail.com',
     description='Sample of How Implement CI for python project and Build Docker image for Shippable product.',
-    long_description=(open('README.rst', encoding='utf-8').read()),
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     url='https://fanoosrahnama.ir',
-    py_modules=["calculator"],
-    # package_dir={'':'Python_CI_CD_Test'},
+    py_modules=["calculator","helloworld"],
+   # package_dir={'':'Python_CI_CD_Test'},
+    install_requires=['Flask>=1.1.1',],
+
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Console',
