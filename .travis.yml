@@ -12,8 +12,8 @@ jobs:
     - stage: execute
       name: "Running the Script"
       script:
-      - echo "hi :)"
-      - tox -v -e py
+       - echo "hi :)"
+       - tox -v -e py
       #- echo $message 
       #- python hello-world-travis.py
       #- echo "Run  pytest"
