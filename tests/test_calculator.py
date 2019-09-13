@@ -2,7 +2,7 @@
 Unit tests for the calculator library
 """
 
-import calculator
+from Python_CI_CD_Test import calculator
 
 
 class TestCalculator:

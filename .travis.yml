@@ -2,6 +2,8 @@ language: python
 python:
   - "3.7"
   - "3.6"
+ install:
+  - pip install tox
  stages:
   - execute
   
@@ -10,7 +12,8 @@ jobs:
     - stage: execute
       name: "Running the Script"
       script:
-      - echo "hi"
+      - echo "hi :)"
+      - tox -v -e py
       #- echo $message 
       #- python hello-world-travis.py
       #- echo "Run  pytest"

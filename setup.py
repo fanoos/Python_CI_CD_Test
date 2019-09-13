@@ -4,8 +4,8 @@ with open("README.md","r") as fh:
     long_description= fh.read()
 
 setup(
-    name='PythonDevOps',
-    version='0.0.1',
+    name='Python_DevOps',
+    version='0.0.2',
     author='Mostafa Ramezani',
     author_email='crystalsoft2010@gmail.com',
     description='Sample of How Implement CI for python project and Build Docker image for Shippable product.',
@@ -19,7 +19,7 @@ setup(
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Console',
-        'Intended Audience :: Python Developer',
+        'Intended Audience :: Science/Research',
         'Natural Language :: English',
         'License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)',
         'Natural Language :: English',
@@ -28,7 +28,7 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
-        'Topic :: Engineering',
+        'Topic :: Scientific/Engineering',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
 )
