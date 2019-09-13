@@ -5,7 +5,7 @@ with open("README.md","r") as fh:
 
 setup(
     name='Python_DevOps',
-    version='0.0.2',
+    version='0.0.5',
     author='Mostafa Ramezani',
     author_email='crystalsoft2010@gmail.com',
     description='Sample of How Implement CI for python project and Build Docker image for Shippable product.',
@@ -13,7 +13,8 @@ setup(
     long_description_content_type="text/markdown",
     url='https://fanoosrahnama.ir',
     py_modules=["calculator","helloworld"],
-   # package_dir={'':'Python_CI_CD_Test'},
+    package_dir={'':'Python_CI_CD_Test'},
+   # packages=find_packages(exclude=('tests', 'docs'))
     install_requires=['Flask>=1.1.1',],
 
     classifiers=[

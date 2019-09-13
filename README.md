@@ -13,6 +13,15 @@ pip install PythonDevOps
 ## Usage
 
 '''python
+
+from helloworld import hello
+# Generate hello message
+hello()
+
+## Usage
+
+'''python
+
 from calculator import add
 
 # Generate Add Calculate
