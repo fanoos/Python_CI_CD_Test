@@ -41,7 +41,11 @@ Job_install_dependencies:
      - pip install -U virtualenv
      - virtualenv venv
      - source venv/bin/activate
-     - pip install -r requirements.txt
+     #- pip install -r requirements.txt
+     - pip list
+     - python setup.py bdist_wheel 
+     - python setup.py sdist
+     - pip list
     artifacts:
     #FIRST I HAVE TO SETTING TEST TO STORE RESULT TO SUCH .XML FILE AFTER THAT KEEP IN IT IN ARTIFACT
     # reports:
