@@ -46,6 +46,7 @@ Job_install_dependencies:
      #- pip install -r requirements.txt
      - python setup.py bdist_wheel 
      - python setup.py sdist
+     - pip install -e .
      - pip install tox
      - pip list
      - tox
