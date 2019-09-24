@@ -76,7 +76,7 @@ build-docker:
    image: docker:latest
    stage: build_docker
    services:
-    - docker:dind
+    #- docker:dind
    before_script:
     - docker --version
     - docker info
@@ -96,7 +96,7 @@ run_docker:
   #image: docker:git
    image: docker:latest
    services:
-    - docker:dind
+   # - docker:dind
 
    stage: run_docker
    script:
