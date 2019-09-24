@@ -8,7 +8,7 @@ pytest = "*"
 twine = "*"
 
 [packages]
-pythondevops = {editable = true,path = "."}
+python-devops = {editable = true,path = "."}
 
 [requires]
 python_version = "3.7"

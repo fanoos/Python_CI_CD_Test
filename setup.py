@@ -5,7 +5,7 @@ with open("README.md","r") as fh:
 
 setup(
     name='Python_DevOps',
-    version='0.0.5',
+    version='0.0.6',
     author='Mostafa Ramezani',
     author_email='crystalsoft2010@gmail.com',
     description='Sample of How Implement CI for python project and Build Docker image for Shippable product.',
