@@ -39,6 +39,7 @@ Job_install_dependencies:
      - echo "install dependencies Stage"
     
     script:
+     - ls
      - pip list
      - pip install -U virtualenv
      - virtualenv venv
@@ -50,6 +51,7 @@ Job_install_dependencies:
      - pip install tox
      - pip list
      - tox
+     - ls
      
     artifacts:
     #FIRST I HAVE TO SETTING TEST TO STORE RESULT TO SUCH .XML FILE AFTER THAT KEEP IN IT IN ARTIFACT
