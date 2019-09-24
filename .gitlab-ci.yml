@@ -38,11 +38,11 @@ Job_install_dependencies:
      - echo "install dependencies Stage"
     
     script:
+     - pip list
      - pip install -U virtualenv
      - virtualenv venv
      - source venv/bin/activate
      #- pip install -r requirements.txt
-     - pip list
      #- python setup.py bdist_wheel 
      #- python setup.py sdist
      #- pip list
