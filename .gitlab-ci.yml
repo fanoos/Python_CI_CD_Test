@@ -15,7 +15,7 @@ variables:
 
  
 before_script:
- - python -V
+ #- python -V
  - apt-get update -q -y
  - pip list
  
