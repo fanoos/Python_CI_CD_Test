@@ -14,8 +14,8 @@ variables:
 
 
  
-before_script:
- #- python -V
+.before_script:
+ - python -V
  - apt-get update -q -y
  - pip list
  
@@ -32,7 +32,7 @@ stages:
    script:
      - python -V
 
-Job_install_dependencies:  
+.Job_install_dependencies:  
     stage: install_dependencies
      # This runs before the unit_tests task and should do any miscellaneous setup that's needed.
     before_script:
@@ -59,7 +59,7 @@ Job_install_dependencies:
     
     # The main task to run your tests.
     # This imports the Docker image for Python. Useful so you don't have to do any Python setup manually.
-Job_unit_tests:    
+.Job_unit_tests:    
     stage: unit_tests
     script:
      - echo "Running unit tests…"
@@ -70,7 +70,7 @@ Job_unit_tests:
      - pip list
      - tox
 
-build-docker:
+.build-docker:
    # Official docker image.
   #image: docker:git #docker:latestmycontainer
    image: docker:latest
