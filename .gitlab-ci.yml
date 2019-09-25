@@ -103,9 +103,9 @@ run_docker:
     - docker pull $CI_REGISTRY_IMAGE:"OKOK"
     - docker tag $CI_REGISTRY_IMAGE:"OKOK" myimage
     - docker run --name 'mycontainer' myimage
- 
-   after_script:
     - docker stop 'mycontainer'
+   after_script:
+    
     - docker info
    #- docker rm -f $CI_REGISTRY_IMAGE:"OKOK" myimage || true
    #- docker rmi -f myrepo:myimage image
