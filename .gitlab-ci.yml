@@ -68,6 +68,8 @@ Job_install_dependencies:
      paths:
       - venv/
       - venv/bin/
+      - dist/
+      - build/
      expire_in: 60 minutes
     except:
         - tags
