@@ -9,7 +9,9 @@ cache:
  
 # Register any environment variables you need here.
 variables:
- MyDocker_Container: "mycontainer"
+  MyDocker_Container: "mycontainer"
+  TEST_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+  RELEASE_IMAGE: $CI_REGISTRY_IMAGE:latest
   #DOCKER_DRIVER: overlay2
 
 
@@ -94,8 +96,12 @@ build_docker_feature:
     #- docker push "$CI_REGISTRY_IMAGE"
     #- docker build --pull -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
     #- docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
-    - docker build --pull -t $CI_REGISTRY_IMAGE:"OKOK" .
-    - docker push $CI_REGISTRY_IMAGE:"OKOK"
+    #- docker build --pull -t $CI_REGISTRY_IMAGE:"OKOK" .
+    #- docker push $CI_REGISTRY_IMAGE:"OKOK"
+    #- docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
+    #- docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+    - docker build --pull -t $CI_$TEST_IMAGE" .
+    - docker push $TEST_IMAGE
    only:
     refs:
      - merge_requests
@@ -111,8 +117,8 @@ run_docker_feature:
     - docker:dind
  
    script:
-    - docker pull $CI_REGISTRY_IMAGE:"OKOK"
-    - docker tag $CI_REGISTRY_IMAGE:"OKOK" myimage
+    - docker pull $TEST_IMAGE
+    - docker tag $TEST_IMAGE myimage
     - docker run --name 'mycontainer' myimage
     - docker stop 'mycontainer'
    after_script:
@@ -127,19 +133,7 @@ run_docker_feature:
     variables:
      - $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "feature/*"
     
-.build:
-  # Official docker image.
-   image: docker:latest
-   stage: build
-   services:
-    - docker:dind
-   before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-   script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
-    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
-   except:
-    - master
+
    
 
 
