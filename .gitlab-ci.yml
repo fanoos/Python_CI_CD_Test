@@ -19,6 +19,7 @@ variables:
     - merge_requests
     - tags
     - developer
+    - feature_one
     
 .before_script:
  - python -V
