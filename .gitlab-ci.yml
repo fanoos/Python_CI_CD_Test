@@ -191,8 +191,9 @@ pypi:
       - rm -rf dist
       - python setup.py check sdist bdist  # This will fail if your creds are bad.
       - python setup.py sdist bdist_wheel
-      #- twine upload --username $PYPI_USER --password $PYPI_PASSWORDD dist/*
-      - twine upload dist/*
+      - echo $PYPI_USER
+      - twine upload --username $PYPI_USER --password $PYPI_PASSWORDD dist/*
+      #- twine upload dist/*
   only:
       - tags
       #- master
