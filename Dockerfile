@@ -11,9 +11,10 @@ RUN rm -r venv
 #RUN pip install virtualenv
 #RUN virtualenv venv
 #RUN /bin/bash -c "source venv/bin/activate"
+#RUN . venv/bin/activate && pip3 install -r /app/requirements.txt
 
 RUN pip install --no-cache-dir -r requirements.txt
-RUN python setup.py bdist_wheel sdist
+#RUN python setup.py bdist_wheel sdist
 RUN ls
 RUN pip install .
 RUN pip install tox
