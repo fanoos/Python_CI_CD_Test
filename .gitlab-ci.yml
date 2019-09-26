@@ -97,15 +97,16 @@ build_docker_feature:
     - docker build --pull -t $CI_REGISTRY_IMAGE:"OKOK" .
     - docker push $CI_REGISTRY_IMAGE:"OKOK"
    only:
+    refs:
+     - merge_requests
      - developer
-   # - tags
-   # - master
-   # - merge_requests
+    variables:
+     - $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "feature/*"
  
 run_docker_feature:
   #image: docker:git
    image: docker:latest
-    stage: run_docker
+   stage: run_docker
    services:
     - docker:dind
  
@@ -120,7 +121,11 @@ run_docker_feature:
    #- docker rm -f $CI_REGISTRY_IMAGE:"OKOK" myimage || true
    #- docker rmi -f myrepo:myimage image
    only:
+    refs:
+     - merge_requests
      - developer
+    variables:
+     - $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "feature/*"
     
 .build:
   # Official docker image.
