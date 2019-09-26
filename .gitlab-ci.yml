@@ -66,6 +66,8 @@ Job_install_dependencies:
       - venv/
       - venv/bin/
      expire_in: 60 minutes
+    except:
+        - tags
     
     # The main task to run your tests.
     # This imports the Docker image for Python. Useful so you don't have to do any Python setup manually.
@@ -80,6 +82,8 @@ Job_unit_tests:
      - pip install tox
      - pip list
      - tox
+    except:
+        - tags
 
 build_docker_feature:
    # Official docker image.
@@ -101,7 +105,7 @@ build_docker_feature:
     #- docker push $CI_REGISTRY_IMAGE:"OKOK"
     #- docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
     #- docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
-    - docker build --pull -t $CI_$TEST_IMAGE" .
+    - docker build --pull -t $TEST_IMAGE .
     - docker push $TEST_IMAGE
    only:
     refs:
