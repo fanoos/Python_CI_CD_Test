@@ -10,7 +10,10 @@ cache:
  
 # Register any environment variables you need here.
 variables:
- MyDocker_Container: "mycontainer"
+  MyDocker_Container: "mycontainer"
+  TEST_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+  RELEASE_IMAGE: $CI_REGISTRY_IMAGE:latest
+  VERSION_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
   #DOCKER_DRIVER: overlay2
 
 
@@ -65,6 +68,8 @@ Job_install_dependencies:
       - venv/
       - venv/bin/
      expire_in: 60 minutes
+    except:
+        - tags
     
     # The main task to run your tests.
     # This imports the Docker image for Python. Useful so you don't have to do any Python setup manually.
@@ -79,6 +84,8 @@ Job_unit_tests:
      - pip install tox
      - pip list
      - tox
+    except:
+        - tags
 
 build_docker_feature:
    # Official docker image.
@@ -91,19 +98,25 @@ build_docker_feature:
     - docker --version
     - docker info
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - echo "From before_script -> ${VAR2}"
    script:
     #- docker build --pull -t "$CI_REGISTRY_IMAGE" .
     #- docker push "$CI_REGISTRY_IMAGE"
     #- docker build --pull -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
     #- docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
-    - docker build --pull -t $CI_REGISTRY_IMAGE:"OKOK" .
-    - docker push $CI_REGISTRY_IMAGE:"OKOK"
+    #- docker build --pull -t $CI_REGISTRY_IMAGE:"OKOK" .
+    #- docker push $CI_REGISTRY_IMAGE:"OKOK"
+    #- docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
+    #- docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+    - docker build --pull -t $TEST_IMAGE .
+    - docker push $TEST_IMAGE
    only:
     refs:
      - merge_requests
-     - developer
+     #- developer
     variables:
-     - $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "feature/*"
+     #- $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "feature/*"
+     - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "developer"
  
 run_docker_feature:
   #image: docker:git
@@ -113,8 +126,8 @@ run_docker_feature:
     - docker:dind
  
    script:
-    - docker pull $CI_REGISTRY_IMAGE:"OKOK"
-    - docker tag $CI_REGISTRY_IMAGE:"OKOK" myimage
+    - docker pull $TEST_IMAGE
+    - docker tag $TEST_IMAGE myimage
     - docker run --name 'mycontainer' myimage
     - docker stop 'mycontainer'
    after_script:
@@ -129,19 +142,7 @@ run_docker_feature:
     variables:
      - $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "feature/*"
     
-.build:
-  # Official docker image.
-   image: docker:latest
-   stage: build
-   services:
-    - docker:dind
-   before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-   script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
-    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
-   except:
-    - master
+
    
 
 
