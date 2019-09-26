@@ -180,7 +180,7 @@ run_docker_production:
      - master
    
 pypi:
-  stage: upload
+  stage: release
   variables:
     TWINE_USERNAME: $PYPI_USER
     TWINE_PASSWORD: $PYPI_PASSWORDD
