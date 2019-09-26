@@ -192,7 +192,7 @@ pypi:
       - python setup.py check sdist bdist  # This will fail if your creds are bad.
       - python setup.py sdist bdist_wheel
       - echo $PYPI_USER
-      - twine upload --username $PYPI_USER --password $PYPI_PASSWORDD dist/*
+      - twine upload --username $PYPI_USER --password $PYPI_PASSWORDD dist/*.tar.gz
       #- twine upload dist/*
   only:
       - tags
