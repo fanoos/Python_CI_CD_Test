@@ -13,7 +13,13 @@ variables:
   #DOCKER_DRIVER: overlay2
 
 
- 
+.only-default: &only-default
+  only:
+    - master
+    - merge_requests
+    - tags
+    - developer
+    
 .before_script:
  - python -V
  - apt-get update -q -y
@@ -32,7 +38,8 @@ stages:
    script:
      - python -V
 
-.Job_install_dependencies:  
+Job_install_dependencies:  
+    <<: *only-default
     stage: install_dependencies
      # This runs before the unit_tests task and should do any miscellaneous setup that's needed.
     before_script:
@@ -59,7 +66,8 @@ stages:
     
     # The main task to run your tests.
     # This imports the Docker image for Python. Useful so you don't have to do any Python setup manually.
-.Job_unit_tests:    
+Job_unit_tests:  
+    <<: *only-default  
     stage: unit_tests
     script:
      - echo "Running unit tests…"
@@ -70,7 +78,7 @@ stages:
      - pip list
      - tox
 
-.build-docker:
+build_docker_feature:
    # Official docker image.
   #image: docker:git #docker:latestmycontainer
    image: docker:latest
@@ -88,17 +96,19 @@ stages:
     #- docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
     - docker build --pull -t $CI_REGISTRY_IMAGE:"OKOK" .
     - docker push $CI_REGISTRY_IMAGE:"OKOK"
-   #only:
+   only:
+     - developer
    # - tags
    # - master
+   # - merge_requests
  
-run_docker:
+run_docker_feature:
   #image: docker:git
    image: docker:latest
+    stage: run_docker
    services:
     - docker:dind
-
-   stage: run_docker
+ 
    script:
     - docker pull $CI_REGISTRY_IMAGE:"OKOK"
     - docker tag $CI_REGISTRY_IMAGE:"OKOK" myimage
@@ -109,7 +119,8 @@ run_docker:
     - docker info
    #- docker rm -f $CI_REGISTRY_IMAGE:"OKOK" myimage || true
    #- docker rmi -f myrepo:myimage image
-
+   only:
+     - developer
     
 .build:
   # Official docker image.
