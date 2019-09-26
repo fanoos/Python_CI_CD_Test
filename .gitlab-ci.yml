@@ -196,8 +196,8 @@ pypi:
   only:
       - tags
       #- master
-   except:
-        - developer
+  except:
+      - developer
 
    
 
