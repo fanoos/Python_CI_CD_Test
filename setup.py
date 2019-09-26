@@ -4,8 +4,8 @@ import os
 version='0.0.7'
 if os.environ.get('CI_COMMIT_TAG'):
     version = os.environ['CI_COMMIT_TAG']
-else if os.environ.get('CI_JOB_ID'):
-    version = os.environ['CI_JOB_ID']
+#if os.environ.get('CI_JOB_ID'):
+ #   version = os.environ['CI_JOB_ID']
     
     
 with open("README.md","r") as fh:
