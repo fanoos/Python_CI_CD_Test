@@ -106,8 +106,8 @@ build_docker_feature:
     refs:
      - merge_requests
      - developer
-    variables:
-     - $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "feature/*"
+   # variables:
+   # - $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "feature/*"
  
 run_docker_feature:
   #image: docker:git
