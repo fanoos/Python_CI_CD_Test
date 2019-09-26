@@ -115,7 +115,7 @@ build_docker_feature:
      #- developer
     variables:
      #- $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "feature/*"
-     - $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "feature_one"
+     - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "feature_one"
  
 run_docker_feature:
   #image: docker:git
