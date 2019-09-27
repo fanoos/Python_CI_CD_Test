@@ -196,11 +196,19 @@ pypi:
       - twine upload --username $PYPI_USER --password $PYPI_PASSWORDD dist/*
       #- twine upload dist/*.tar.gz
       #twine upload --repository-url https://test.pypi.org/legacy/ dist/*
-  only:
-      - tags
-      - master
   except:
-      - developer
+     - developer
+  #only:
+     #- tags
+     #- master
+     #- tags && master
+     
+  only:
+    tags: true
+    branches: 
+      - master
+
+ 
 
    
 
