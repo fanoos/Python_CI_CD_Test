@@ -203,7 +203,7 @@ pypi:
  
   only:
      - tags
-     - master
+     #- master
      #- tags && master
   except:
      - developer
