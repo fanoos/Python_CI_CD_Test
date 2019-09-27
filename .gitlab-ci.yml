@@ -187,9 +187,9 @@ pypi:
     TWINE_USERNAME: $PYPI_USER
     TWINE_PASSWORD: $PYPI_PASSWORDD
   before_script:
-    - BRANCH=$(git branch --contains ${CI_COMMIT_REF_NAME})
+   # - BRANCH=$(git branch --contains ${CI_COMMIT_REF_NAME})
     #- if [ "${BRANCH}" != "master" ]; then exit 0; fi
-    - echo ${BRANCH}
+    - echo ${CI_COMMIT_REF_NAME}
   script:
       - pip install -U twine wheel setuptools
       - rm -rf dist
