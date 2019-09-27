@@ -186,16 +186,30 @@ pypi:
   variables:
     TWINE_USERNAME: $PYPI_USER
     TWINE_PASSWORD: $PYPI_PASSWORDD
+  before_script:
+    - BRANCH=$(git branch --contains ${CI_COMMIT_REF_NAME})
+    - if [ "${BRANCH}" != "master" ]; then exit 0; fi
   script:
-      - pip install twine
+      - pip install -U twine wheel setuptools
       - rm -rf dist
       - python setup.py check sdist bdist  # This will fail if your creds are bad.
       - python setup.py sdist bdist_wheel
-      #- twine upload --username $PYPI_USER --password $PYPI_PASSWORDD dist/*
-      - twine upload dist/*
+      - twine check dist/*
+      - echo $PYPI_USER
+      - twine upload --username $PYPI_USER --password $PYPI_PASSWORDD dist/*
+      #- twine upload dist/*.tar.gz
+      #twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+ 
   only:
-      - tags
-      #- master
+     #- tags
+     #- master
+     - tags && master
+  except:
+     - developer
+     
+  
+
+ 
 
    
 
