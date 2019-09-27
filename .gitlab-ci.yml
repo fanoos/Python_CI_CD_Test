@@ -188,7 +188,8 @@ pypi:
     TWINE_PASSWORD: $PYPI_PASSWORDD
   before_script:
     - BRANCH=$(git branch --contains ${CI_COMMIT_REF_NAME})
-    - if [ "${BRANCH}" != "master" ]; then exit 0; fi
+    #- if [ "${BRANCH}" != "master" ]; then exit 0; fi
+    - echo ${BRANCH}
   script:
       - pip install -U twine wheel setuptools
       - rm -rf dist
@@ -206,6 +207,9 @@ pypi:
      - tags && master
   except:
      - developer
+     - dev*
+     - feature/*
+     - feature*
      
   
 
