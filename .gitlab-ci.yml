@@ -202,9 +202,9 @@ pypi:
       #twine upload --repository-url https://test.pypi.org/legacy/ dist/*
  
   only:
-     #- tags
-     #- master
-     - tags && master
+     - tags
+     - master
+     #- tags && master
   except:
      - developer
      - dev*
