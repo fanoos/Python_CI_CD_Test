@@ -57,6 +57,8 @@ Job_install_dependencies:
      - virtualenv venv
      - source venv/bin/activate
      #- pip install -r requirements.txt
+     - rm -rf dist
+     - rm -rf build
      - python setup.py bdist_wheel sdist
      - pip install .
         
@@ -193,6 +195,7 @@ pypi:
   script:
       - pip install -U twine wheel setuptools
       - rm -rf dist
+      - rm -rf build
       - python setup.py check sdist bdist  # This will fail if your creds are bad.
       - python setup.py sdist bdist_wheel
       - twine check dist/*
