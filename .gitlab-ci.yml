@@ -197,7 +197,7 @@ pypi:
       - python setup.py sdist bdist_wheel
       - twine check dist/*
       - echo $PYPI_USER
-      - twine upload --username $PYPI_USER --password $PYPI_PASSWORDD dist/*
+      - twine upload --repository-url https://upload.pypi.org/legacy --username $PYPI_USER --password $PYPI_PASSWORDD dist/*
       #- twine upload dist/*.tar.gz
       #twine upload --repository-url https://test.pypi.org/legacy/ dist/*
  
