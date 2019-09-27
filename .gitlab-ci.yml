@@ -226,8 +226,8 @@ build_docker_tag:
     - docker push $VERSION_IMAGE
    only:
     refs:
-     - merge_requests
-     - master
+     - tags
+   
    
  
 run_docker_tag:
@@ -246,8 +246,8 @@ run_docker_tag:
   
    only:
     refs:
-     - merge_requests
-     - master
+     - tags
+     
      
   
 
