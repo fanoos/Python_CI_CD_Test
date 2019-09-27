@@ -186,6 +186,9 @@ pypi:
   variables:
     TWINE_USERNAME: $PYPI_USER
     TWINE_PASSWORD: $PYPI_PASSWORDD
+  before_script:
+    - BRANCH=$(git branch --contains ${CI_COMMIT_REF_NAME})
+    - if [ "${BRANCH}" != "master" ]; then exit 0; fi
   script:
       - pip install -U twine wheel setuptools
       - rm -rf dist
@@ -196,17 +199,15 @@ pypi:
       - twine upload --username $PYPI_USER --password $PYPI_PASSWORDD dist/*
       #- twine upload dist/*.tar.gz
       #twine upload --repository-url https://test.pypi.org/legacy/ dist/*
-  except:
-     - developer
-  #only:
+ 
+  only:
      #- tags
      #- master
-     #- tags && master
+     - tags && master
+  except:
+     - developer
      
-  only:
-    tags: true
-    branches: 
-      - master
+  
 
  
 
