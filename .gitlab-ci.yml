@@ -197,7 +197,7 @@ pypi:
       - python setup.py sdist bdist_wheel
       - twine check dist/*
       - echo $PYPI_USER
-      - twine upload --repository-url https://upload.pypi.org/legacy --username $PYPI_USER --password $PYPI_PASSWORDD dist/*
+      - twine upload --repository-url https://upload.pypi.org/legacy/ --username $PYPI_USER --password $PYPI_PASSWORDD dist/*
       #- twine upload dist/*.tar.gz
       #twine upload --repository-url https://test.pypi.org/legacy/ dist/*
  
@@ -210,6 +210,44 @@ pypi:
      - dev*
      - feature/*
      - feature*
+  
+build_docker_tag:
+   image: docker:latest
+   stage: build_docker
+   services:
+    - docker:dind
+   before_script:
+    - docker --version
+    - docker info
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+ 
+   script:
+    - docker build --pull -t $VERSION_IMAGE .
+    - docker push $VERSION_IMAGE
+   only:
+    refs:
+     - merge_requests
+     - master
+   
+ 
+run_docker_tag:
+   image: docker:latest
+   stage: run_docker
+   services:
+    - docker:dind
+ 
+   script:
+    - docker pull $VERSION_IMAGE
+    - docker tag $VERSION_IMAGE myimage
+    - docker run --name $MyDocker_Container myimage
+    - docker stop $MyDocker_Container
+   after_script:
+    - docker info
+  
+   only:
+    refs:
+     - merge_requests
+     - master
      
   
 
